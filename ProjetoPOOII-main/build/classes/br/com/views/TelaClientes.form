@@ -85,8 +85,8 @@
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtNomeUsu" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
-                                      <Component id="txtIdUsu" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                                       <Component id="txtLoginUsu" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
+                                      <Component id="txtIdUsu" alignment="0" min="-2" pref="62" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

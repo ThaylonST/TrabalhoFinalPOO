@@ -27,8 +27,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     public TelaClientes() {
         initComponents();
         conexao = ConexaoDAO.conector();
-        UsuarioDAO ojbUsuarioDAO = new UsuarioDAO();
-        ojbUsuarioDAO.pesquisaAuto();
+        ClienteDAO ojbClienteDAO = new ClienteDAO();
+        ojbClienteDAO.pesquisaAuto();
     }
 
     /**
@@ -204,8 +204,8 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                                         .addGap(162, 162, 162))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNomeUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtLoginUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtLoginUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
