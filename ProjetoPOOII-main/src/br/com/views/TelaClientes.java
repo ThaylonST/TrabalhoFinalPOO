@@ -9,9 +9,11 @@ package br.com.views;
  *
  * @author Eder
  */
+import br.com.DAO.ClienteDAO;
 import java.sql.*;
 import br.com.DAO.ConexaoDAO;
 import br.com.DAO.UsuarioDAO;
+import br.com.DTO.ClienteDTO;
 import br.com.DTO.UsuarioDTO;
 import javax.swing.JOptionPane;
 
@@ -28,7 +30,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         initComponents();
         conexao = ConexaoDAO.conector();
         ClienteDAO ojbClienteDAO = new ClienteDAO();
-        ojbClienteDAO.pesquisaAuto();
+        ojbClienteDAO.pesquisarCliente(WIDTH);
     }
 
     /**
@@ -47,19 +49,25 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtIdUsu = new javax.swing.JTextField();
-        txtNomeUsu = new javax.swing.JTextField();
-        txtLoginUsu = new javax.swing.JTextField();
-        txtSenhaUsu = new javax.swing.JTextField();
+        txtIdCli = new javax.swing.JTextField();
+        txtNomeCli = new javax.swing.JTextField();
+        txtEmailCli = new javax.swing.JTextField();
         cboPerfilUsu = new javax.swing.JComboBox<>();
-        btnUsuCreate = new javax.swing.JButton();
-        btnUsuread = new javax.swing.JButton();
-        btnUsuUpdate = new javax.swing.JButton();
-        btnUsuDelete = new javax.swing.JButton();
+        btnCliCreate = new javax.swing.JButton();
+        btnCliread = new javax.swing.JButton();
+        btnCliUpdate = new javax.swing.JButton();
+        btnCliDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TbUsuarios = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        TbCliente = new javax.swing.JTable();
+        LimpaCli = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        txtCpfCnpjCli = new javax.swing.JPasswordField();
+        txtSenhaCli1 = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        txtEnderecoCli1 = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
+        txtTelefoneCli1 = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,73 +82,112 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        setBackground(new java.awt.Color(102, 0, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Usuários");
         setPreferredSize(new java.awt.Dimension(604, 500));
+        getContentPane().setLayout(null);
 
-        jLabel1.setText("ID");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel1.setText("ID:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(20, 40, 30, 17);
 
-        jLabel2.setText("Nome");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel2.setText("Nome:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(20, 100, 60, 17);
 
-        jLabel3.setText("Login");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel3.setText("E-mail:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(20, 160, 50, 17);
 
-        jLabel4.setText("Senha");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel4.setText("CPF/CNPJ:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(20, 400, 80, 17);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(240, 240, 240));
         jLabel5.setText("Perfil");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(250, 470, 60, 22);
 
-        txtIdUsu.addActionListener(new java.awt.event.ActionListener() {
+        txtIdCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdUsuActionPerformed(evt);
+                txtIdCliActionPerformed(evt);
             }
         });
+        getContentPane().add(txtIdCli);
+        txtIdCli.setBounds(20, 60, 337, 30);
+        getContentPane().add(txtNomeCli);
+        txtNomeCli.setBounds(20, 120, 337, 30);
 
-        txtLoginUsu.addActionListener(new java.awt.event.ActionListener() {
+        txtEmailCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLoginUsuActionPerformed(evt);
+                txtEmailCliActionPerformed(evt);
             }
         });
+        getContentPane().add(txtEmailCli);
+        txtEmailCli.setBounds(20, 180, 337, 30);
 
+        cboPerfilUsu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cboPerfilUsu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
+        getContentPane().add(cboPerfilUsu);
+        cboPerfilUsu.setBounds(230, 500, 96, 28);
 
-        btnUsuCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/person_add.png"))); // NOI18N
-        btnUsuCreate.setToolTipText("Adicionar");
-        btnUsuCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuCreate.setPreferredSize(new java.awt.Dimension(80, 80));
-        btnUsuCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnCliCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/person_add.png"))); // NOI18N
+        btnCliCreate.setToolTipText("Adicionar");
+        btnCliCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCliCreate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnCliCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuCreateActionPerformed(evt);
+                btnCliCreateActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCliCreate);
+        btnCliCreate.setBounds(470, 460, 80, 70);
 
-        btnUsuread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/search.png"))); // NOI18N
-        btnUsuread.setToolTipText("Pesquisar");
-        btnUsuread.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuread.addActionListener(new java.awt.event.ActionListener() {
+        btnCliread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/search.png"))); // NOI18N
+        btnCliread.setToolTipText("Pesquisar");
+        btnCliread.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCliread.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsureadActionPerformed(evt);
+                btnClireadActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCliread);
+        btnCliread.setBounds(580, 460, 80, 70);
 
-        btnUsuUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
-        btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnCliUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
+        btnCliUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCliUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuUpdateActionPerformed(evt);
+                btnCliUpdateActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCliUpdate);
+        btnCliUpdate.setBounds(690, 460, 80, 70);
 
-        btnUsuDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete_.png"))); // NOI18N
-        btnUsuDelete.setToolTipText("Excluir");
-        btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnCliDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete_.png"))); // NOI18N
+        btnCliDelete.setToolTipText("Excluir");
+        btnCliDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCliDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuDeleteActionPerformed(evt);
+                btnCliDeleteActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCliDelete);
+        btnCliDelete.setBounds(800, 460, 80, 70);
 
-        TbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        TbCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -157,225 +204,211 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 "Id", "Nome", "Login", "Senha", "Perfil"
             }
         ));
-        TbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        TbCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TbUsuariosMouseClicked(evt);
+                TbClienteMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(TbUsuarios);
+        jScrollPane2.setViewportView(TbCliente);
 
-        jButton1.setText("Limpar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(400, 60, 542, 390);
+
+        LimpaCli.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        LimpaCli.setText("Limpar");
+        LimpaCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                LimpaCliActionPerformed(evt);
             }
         });
+        getContentPane().add(LimpaCli);
+        LimpaCli.setBounds(50, 480, 100, 29);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
         jLabel6.setText("Tela Clientes");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(130, 0, 120, 22);
+        getContentPane().add(txtCpfCnpjCli);
+        txtCpfCnpjCli.setBounds(20, 420, 337, 30);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnUsuCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(btnUsuread, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(89, 89, 89)
-                                .addComponent(btnUsuUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtSenhaUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(162, 162, 162))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNomeUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtLoginUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboPerfilUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnUsuDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(34, 34, 34))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtIdUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNomeUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtLoginUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtSenhaUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPerfilUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUsuread, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        txtSenhaCli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaCli1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSenhaCli1);
+        txtSenhaCli1.setBounds(20, 240, 337, 30);
 
-        setBounds(0, 0, 604, 652);
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel7.setText("Senha:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(20, 220, 50, 17);
+        getContentPane().add(txtEnderecoCli1);
+        txtEnderecoCli1.setBounds(20, 300, 337, 30);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel8.setText("Endereço:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(20, 280, 70, 17);
+        getContentPane().add(txtTelefoneCli1);
+        txtTelefoneCli1.setBounds(20, 360, 337, 30);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel9.setText("Telefone:");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(20, 340, 65, 17);
+
+        getAccessibleContext().setAccessibleName("Clientes");
+
+        setBounds(0, 0, 974, 576);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuActionPerformed
+    private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdUsuActionPerformed
+    }//GEN-LAST:event_txtIdCliActionPerformed
 
-    private void txtLoginUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginUsuActionPerformed
+    private void txtEmailCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailCliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginUsuActionPerformed
+    }//GEN-LAST:event_txtEmailCliActionPerformed
 
-    private void btnUsuCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCreateActionPerformed
-        int id_usuario = Integer.parseInt(txtIdUsu.getText());
-        String nome_usuario = txtNomeUsu.getText();
-        String login_usuario = txtLoginUsu.getText();
-        String senha_usuario = txtSenhaUsu.getText();
-        String perfil_usuario = cboPerfilUsu.getSelectedItem().toString();
+    private void btnCliCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliCreateActionPerformed
+      // Coleta os dados do formulário
+    int id_cliente = Integer.parseInt(txtIdCli.getText());
+    String nome_cliente = txtNomeCli.getText();
+    String endereco_cliente = txtCpfCnpjCli.getText();
+    String telefone_cliente = txtCpfCnpjCli.getText();
+    String email_cliente = txtEmailCli.getText();
+    String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
 
-        UsuarioDTO objusuarioDTO = new UsuarioDTO();
-        objusuarioDTO.setId_uauario(id_usuario);
-        objusuarioDTO.setNome_usuario(nome_usuario);
-        objusuarioDTO.setLogin_usuario(login_usuario);
-        objusuarioDTO.setSenha_usuario(senha_usuario);
-        objusuarioDTO.setPerfil_usuario(perfil_usuario);
+    // Cria um objeto ClienteDTO e define seus atributos
+    ClienteDTO objClienteDTO = new ClienteDTO();
+    objClienteDTO.setId_cliente(id_cliente);
+    objClienteDTO.setNome_cli(nome_cliente);
+    objClienteDTO.setEndereco_cli(endereco_cliente);
+    objClienteDTO.setTelefone_cli(telefone_cliente);
+    objClienteDTO.setEmail_cli(email_cliente);
+    objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
 
-        UsuarioDAO objUsuarioDAO = new UsuarioDAO();
-        objUsuarioDAO.inserirUsuario(objusuarioDTO);
-    }//GEN-LAST:event_btnUsuCreateActionPerformed
+    // Instancia o ClienteDAO e chama o método para inserir o cliente
+    ClienteDAO objClienteDAO = new ClienteDAO();
+    objClienteDAO.inserirCliente(objClienteDTO);
+    }//GEN-LAST:event_btnCliCreateActionPerformed
 
-    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
-        //Botão Deletar
-        int id_usuario = Integer.parseInt(txtIdUsu.getText());
-        UsuarioDTO objusuarioDTO = new UsuarioDTO();
-        objusuarioDTO.setId_uauario(id_usuario);
+    private void btnCliDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliDeleteActionPerformed
+           int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
+    if (confirma == JOptionPane.YES_OPTION) {
+        int id_cliente = Integer.parseInt(txtIdCli.getText());
         
-        UsuarioDAO objUsuarioDAO = new UsuarioDAO();
-        objUsuarioDAO.deletar(objusuarioDTO);
-    }//GEN-LAST:event_btnUsuDeleteActionPerformed
+        // Instancia o ClienteDAO e chama o método para excluir o cliente
+        ClienteDAO objClienteDAO = new ClienteDAO();
+        objClienteDAO.deletarCliente(id_cliente);
+        
+        JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
+    }
+    }//GEN-LAST:event_btnCliDeleteActionPerformed
 
-    private void btnUsureadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsureadActionPerformed
-        //Botão Pesquisar
-        int id_usuario = Integer.parseInt(txtIdUsu.getText());
-        String nome_usuario = txtNomeUsu.getText();
-        String login_usuario = txtLoginUsu.getText();
-        String senha_usuario = txtSenhaUsu.getText();
-        String perfil_usuario = cboPerfilUsu.getSelectedItem().toString();
+    private void btnClireadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClireadActionPerformed
+      ClienteDAO objClienteDAO = new ClienteDAO();
+    
+    int id_cliente = Integer.parseInt(txtIdCli.getText());
+    
+    // Busca o cliente pelo ID
+    ClienteDTO cliente = objClienteDAO.pesquisarCliente(id_cliente);
 
-        UsuarioDTO objusuarioDTO = new UsuarioDTO();
-        objusuarioDTO.setId_uauario(id_usuario);
-        objusuarioDTO.setNome_usuario(nome_usuario);
-        objusuarioDTO.setLogin_usuario(login_usuario);
-        objusuarioDTO.setSenha_usuario(senha_usuario);
-        objusuarioDTO.setPerfil_usuario(perfil_usuario);
+    // Verifica se encontrou o cliente e preenche os campos
+    if (cliente != null) {
+        txtNomeCli.setText(cliente.getNome_cli());
+        txtCpfCnpjCli.setText(cliente.getEndereco_cli());
+        txtCpfCnpjCli.setText(cliente.getTelefone_cli());
+        txtEmailCli.setText(cliente.getEmail_cli());
+        txtCpfCnpjCli.setText(cliente.getCpfOUcnpj_cli());
+    } else {
+        JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
+    }
+    }//GEN-LAST:event_btnClireadActionPerformed
 
-        UsuarioDAO objUsuarioDAO = new UsuarioDAO();
-        objUsuarioDAO.pesquisar(objusuarioDTO);
-    }//GEN-LAST:event_btnUsureadActionPerformed
+    private void btnCliUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliUpdateActionPerformed
+       // Coleta os dados do formulário
+    int id_cliente = Integer.parseInt(txtIdCli.getText());
+    String nome_cliente = txtNomeCli.getText();
+    String endereco_cliente = txtCpfCnpjCli.getText();
+    String telefone_cliente = txtCpfCnpjCli.getText();
+    String email_cliente = txtEmailCli.getText();
+    String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
 
-    private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
-        // Botão Editar
-        int id_usuario = Integer.parseInt(txtIdUsu.getText());
-        String nome_usuario = txtNomeUsu.getText();
-        String login_usuario = txtLoginUsu.getText();
-        String senha_usuario = txtSenhaUsu.getText();
-        String perfil_usuario = cboPerfilUsu.getSelectedItem().toString();
+    // Cria um objeto ClienteDTO e define seus atributos
+    ClienteDTO objClienteDTO = new ClienteDTO();
+    objClienteDTO.setId_cliente(id_cliente);
+    objClienteDTO.setNome_cli(nome_cliente);
+    objClienteDTO.setEndereco_cli(endereco_cliente);
+    objClienteDTO.setTelefone_cli(telefone_cliente);
+    objClienteDTO.setEmail_cli(email_cliente);
+    objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
 
-        UsuarioDTO objusuarioDTO = new UsuarioDTO();
-        objusuarioDTO.setId_uauario(id_usuario);
-        objusuarioDTO.setNome_usuario(nome_usuario);
-        objusuarioDTO.setLogin_usuario(login_usuario);
-        objusuarioDTO.setSenha_usuario(senha_usuario);
-        objusuarioDTO.setPerfil_usuario(perfil_usuario);
+    // Instancia o ClienteDAO e chama o método para atualizar o cliente
+    ClienteDAO objClienteDAO = new ClienteDAO();
+    objClienteDAO.atualizarCliente(objClienteDTO);
+    }//GEN-LAST:event_btnCliUpdateActionPerformed
 
-        UsuarioDAO objUsuarioDAO = new UsuarioDAO();
-        objUsuarioDAO.editar(objusuarioDTO);
-    }//GEN-LAST:event_btnUsuUpdateActionPerformed
-
-    private void TbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbUsuariosMouseClicked
+    private void TbClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbClienteMouseClicked
         //Busca itens da tabela para os campos do formulário
-        int linhaSel = TbUsuarios.getSelectedRow();
+        int linhaSel = TbCliente.getSelectedRow();
         if(linhaSel != -1 ){
-            String id_usuario = TbUsuarios.getValueAt(linhaSel, 0).toString();
-            String nome_usuario = TbUsuarios.getValueAt(linhaSel, 1).toString();
-            String login_usuario = TbUsuarios.getValueAt(linhaSel, 2).toString();
-            String senha_usuario = TbUsuarios.getValueAt(linhaSel, 3).toString();
-            String perfil_usuario = TbUsuarios.getValueAt(linhaSel, 4).toString();
+            String id_cliente = TbCliente.getValueAt(linhaSel, 0).toString();
+            String nome_cliente = TbCliente.getValueAt(linhaSel, 1).toString();
+            String login_cliente = TbCliente.getValueAt(linhaSel, 2).toString();
+            String senha_cliente = TbCliente.getValueAt(linhaSel, 3).toString();
+            String perfil_cliente = TbCliente.getValueAt(linhaSel, 4).toString();
             
-            txtIdUsu.setText(id_usuario);
-            txtNomeUsu.setText(nome_usuario);
-            txtLoginUsu.setText(login_usuario);
-            txtSenhaUsu.setText(senha_usuario);
-            cboPerfilUsu.setSelectedItem(perfil_usuario);
+            txtIdCli.setText(id_cliente);
+            txtNomeCli.setText(nome_cliente);
+            txtEmailCli.setText(login_cliente);
+            txtCpfCnpjCli.setText(senha_cliente);
+            cboPerfilUsu.setSelectedItem(perfil_cliente);
         }
-    }//GEN-LAST:event_TbUsuariosMouseClicked
+    }//GEN-LAST:event_TbClienteMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LimpaCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpaCliActionPerformed
         // Botão limpar campos
-        UsuarioDAO objusuarioDAO = new UsuarioDAO();
-        objusuarioDAO.limparCampos();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ClienteDAO objClienteDAO = new ClienteDAO();
+        objClienteDAO.limparCampos();
+    }//GEN-LAST:event_LimpaCliActionPerformed
+
+    private void txtSenhaCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaCli1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaCli1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable TbUsuarios;
-    private javax.swing.JButton btnUsuCreate;
-    private javax.swing.JButton btnUsuDelete;
-    private javax.swing.JButton btnUsuUpdate;
-    private javax.swing.JButton btnUsuread;
+    private javax.swing.JButton LimpaCli;
+    public static javax.swing.JTable TbCliente;
+    private javax.swing.JButton btnCliCreate;
+    private javax.swing.JButton btnCliDelete;
+    private javax.swing.JButton btnCliUpdate;
+    private javax.swing.JButton btnCliread;
     public static javax.swing.JComboBox<String> cboPerfilUsu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    public static javax.swing.JTextField txtIdUsu;
-    public static javax.swing.JTextField txtLoginUsu;
-    public static javax.swing.JTextField txtNomeUsu;
-    public static javax.swing.JTextField txtSenhaUsu;
+    public javax.swing.JPasswordField txtCpfCnpjCli;
+    public static javax.swing.JTextField txtEmailCli;
+    public javax.swing.JPasswordField txtEnderecoCli1;
+    public static javax.swing.JTextField txtIdCli;
+    public static javax.swing.JTextField txtNomeCli;
+    public javax.swing.JPasswordField txtSenhaCli1;
+    public javax.swing.JPasswordField txtTelefoneCli1;
     // End of variables declaration//GEN-END:variables
 }
