@@ -23,10 +23,10 @@
     </tr>
   </table>
 </div>
+
+<h1>Documentação da Pasta <code>br.com.DAO</code></h1>
 </td>
     </tr>
-<h1>Documentação da Pasta <code>br.com.DAO</code></h1>
-
 <h2>Visão Geral</h2>
 <p>A pasta <code>br.com.DAO</code> contém classes que interagem diretamente com o banco de dados, sendo responsáveis pela execução de operações de CRUD (Create, Read, Update, Delete) para diferentes entidades do sistema. Ela inclui a conexão com o banco de dados e métodos que manipulam os dados de clientes, usuários e agendas.</p>
 
