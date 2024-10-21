@@ -199,22 +199,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private void subMenuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuUsuariosActionPerformed
      // Abrir a tela de usuários dentro do painel Desktop
-        if (telaUsuario == null) {  // Verifica se a tela já não foi criada
-            telaUsuario = new TelaUsuario(this); // Passa a referência da TelaPrincipal
-            Desktop.add(telaUsuario);
-        }
+    if (telaUsuario == null || !telaUsuario.isVisible()) {  // Verifica se a tela já não foi criada ou se está oculta
+        telaUsuario = new TelaUsuario(this); // Passa a referência da TelaPrincipal
+        Desktop.add(telaUsuario);
+    }
 
-        // Tornar visível a tela de usuários e ocultar a de clientes, se aberta
-        telaUsuario.setVisible(true);
-        try {
-            telaUsuario.setSelected(true); // Focar na tela de usuários
-        } catch (java.beans.PropertyVetoException e) {
-            e.printStackTrace();
-        }
+    // Tornar visível a tela de usuários e ocultar a de clientes, se aberta
+    telaUsuario.setVisible(true);
+    try {
+        telaUsuario.setSelected(true); // Focar na tela de usuários
+    } catch (java.beans.PropertyVetoException e) {
+        e.printStackTrace();
+    }
 
-        if (telaCliente != null && telaCliente.isVisible()) {
-            telaCliente.setVisible(false); // Ocultar tela de clientes se estiver aberta
-        }
+    if (telaCliente != null && telaCliente.isVisible()) {
+        telaCliente.setVisible(false); // Ocultar tela de clientes se estiver aberta
+    }
     
     }//GEN-LAST:event_subMenuUsuariosActionPerformed
 
@@ -242,9 +242,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
         
-         // Abrir a tela de clientes dentro do painel Desktop
-    // Abrir a tela de clientes dentro do painel Desktop
-    if (telaCliente == null) {  // Verifica se a tela já não foi criada
+        // Abrir a tela de clientes dentro do painel Desktop
+    if (telaCliente == null || !telaCliente.isVisible()) {  // Verifica se a tela já não foi criada ou se está oculta
         telaCliente = new TelaClientes(this); // Passa a referência da TelaPrincipal
         Desktop.add(telaCliente);
     }
