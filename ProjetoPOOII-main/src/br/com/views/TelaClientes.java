@@ -15,22 +15,34 @@ import br.com.DAO.ConexaoDAO;
 import br.com.DAO.UsuarioDAO;
 import br.com.DTO.ClienteDTO;
 import br.com.DTO.UsuarioDTO;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaClientes extends javax.swing.JInternalFrame {
 
+    private TelaPrincipal telaPrincipal; // Referência para TelaPrincipal
+   
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
 
     /**
-     * Creates new form TelaUsuario
+     * Cria um novo form TelaClientes
      */
-    public TelaClientes() {
+    public TelaClientes(TelaPrincipal telaPrincipal) {
         initComponents();
+        this.telaPrincipal = telaPrincipal; // Armazena a referência
         conexao = ConexaoDAO.conector();
         ClienteDAO ojbClienteDAO = new ClienteDAO();
         ojbClienteDAO.pesquisarCliente(WIDTH);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        TelaClientes.this.telaPrincipal.telaCliente = null; // Limpa a referência ao fechar
+    }
+});
+
     }
 
     /**
@@ -48,11 +60,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         txtIdCli = new javax.swing.JTextField();
         txtNomeCli = new javax.swing.JTextField();
         txtEmailCli = new javax.swing.JTextField();
-        cboPerfilUsu = new javax.swing.JComboBox<>();
         btnCliCreate = new javax.swing.JButton();
         btnCliread = new javax.swing.JButton();
         btnCliUpdate = new javax.swing.JButton();
@@ -61,13 +71,11 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         TbCliente = new javax.swing.JTable();
         LimpaCli = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txtCpfCnpjCli = new javax.swing.JPasswordField();
-        txtSenhaCli1 = new javax.swing.JPasswordField();
-        jLabel7 = new javax.swing.JLabel();
-        txtEnderecoCli1 = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        txtTelefoneCli1 = new javax.swing.JPasswordField();
         jLabel9 = new javax.swing.JLabel();
+        txtEnderecoCli1 = new javax.swing.JTextField();
+        txtTelefoneCli1 = new javax.swing.JTextField();
+        txtCpfCnpjCli = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,39 +94,34 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Usuários");
+        setResizable(true);
+        setTitle("Clientes");
         setPreferredSize(new java.awt.Dimension(604, 500));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ID:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 40, 30, 17);
+        jLabel1.setBounds(10, 30, 30, 17);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nome:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 100, 60, 17);
+        jLabel2.setBounds(10, 90, 60, 17);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("E-mail:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 160, 50, 17);
+        jLabel3.setBounds(10, 150, 50, 17);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("CPF/CNPJ:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 400, 80, 17);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel5.setText("Perfil");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(250, 470, 60, 22);
+        jLabel4.setBounds(10, 330, 80, 17);
 
         txtIdCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,9 +129,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(txtIdCli);
-        txtIdCli.setBounds(20, 60, 337, 30);
+        txtIdCli.setBounds(10, 50, 210, 30);
         getContentPane().add(txtNomeCli);
-        txtNomeCli.setBounds(20, 120, 337, 30);
+        txtNomeCli.setBounds(10, 110, 210, 30);
 
         txtEmailCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,12 +139,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(txtEmailCli);
-        txtEmailCli.setBounds(20, 180, 337, 30);
-
-        cboPerfilUsu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        cboPerfilUsu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
-        getContentPane().add(cboPerfilUsu);
-        cboPerfilUsu.setBounds(230, 500, 96, 28);
+        txtEmailCli.setBounds(10, 170, 210, 30);
 
         btnCliCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/person_add.png"))); // NOI18N
         btnCliCreate.setToolTipText("Adicionar");
@@ -153,7 +151,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnCliCreate);
-        btnCliCreate.setBounds(470, 460, 80, 70);
+        btnCliCreate.setBounds(410, 400, 60, 50);
 
         btnCliread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/search.png"))); // NOI18N
         btnCliread.setToolTipText("Pesquisar");
@@ -164,7 +162,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnCliread);
-        btnCliread.setBounds(580, 460, 80, 70);
+        btnCliread.setBounds(500, 400, 60, 50);
 
         btnCliUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         btnCliUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -174,7 +172,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnCliUpdate);
-        btnCliUpdate.setBounds(690, 460, 80, 70);
+        btnCliUpdate.setBounds(590, 400, 60, 50);
 
         btnCliDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete_.png"))); // NOI18N
         btnCliDelete.setToolTipText("Excluir");
@@ -185,10 +183,23 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnCliDelete);
-        btnCliDelete.setBounds(800, 460, 80, 70);
+        btnCliDelete.setBounds(680, 400, 60, 50);
 
+        TbCliente.setForeground(new java.awt.Color(0, 0, 0));
         TbCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -201,7 +212,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Login", "Senha", "Perfil"
+                "Id", "Nome", "E-mail", "Endereço", "Telefone"
             }
         ));
         TbCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,9 +223,10 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(TbCliente);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(400, 60, 542, 390);
+        jScrollPane2.setBounds(240, 10, 542, 380);
 
         LimpaCli.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        LimpaCli.setForeground(new java.awt.Color(0, 0, 0));
         LimpaCli.setText("Limpar");
         LimpaCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,49 +234,45 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(LimpaCli);
-        LimpaCli.setBounds(50, 480, 100, 29);
+        LimpaCli.setBounds(280, 410, 100, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tela Clientes");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(130, 0, 120, 22);
-        getContentPane().add(txtCpfCnpjCli);
-        txtCpfCnpjCli.setBounds(20, 420, 337, 30);
-
-        txtSenhaCli1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaCli1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtSenhaCli1);
-        txtSenhaCli1.setBounds(20, 240, 337, 30);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel7.setText("Senha:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 220, 50, 17);
-        getContentPane().add(txtEnderecoCli1);
-        txtEnderecoCli1.setBounds(20, 300, 337, 30);
+        jLabel6.setBounds(70, 0, 120, 22);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Endereço:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(20, 280, 70, 17);
-        getContentPane().add(txtTelefoneCli1);
-        txtTelefoneCli1.setBounds(20, 360, 337, 30);
+        jLabel8.setBounds(10, 210, 70, 17);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Telefone:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(20, 340, 65, 17);
+        jLabel9.setBounds(10, 270, 65, 17);
 
-        getAccessibleContext().setAccessibleName("Clientes");
+        txtEnderecoCli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnderecoCli1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtEnderecoCli1);
+        txtEnderecoCli1.setBounds(10, 232, 210, 30);
 
-        setBounds(0, 0, 974, 576);
+        txtTelefoneCli1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneCli1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtTelefoneCli1);
+        txtTelefoneCli1.setBounds(10, 292, 210, 30);
+        getContentPane().add(txtCpfCnpjCli);
+        txtCpfCnpjCli.setBounds(10, 352, 210, 30);
+
+        setBounds(0, 0, 846, 494);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
@@ -276,111 +284,137 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEmailCliActionPerformed
 
     private void btnCliCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliCreateActionPerformed
-      // Coleta os dados do formulário
-    int id_cliente = Integer.parseInt(txtIdCli.getText());
-    String nome_cliente = txtNomeCli.getText();
-    String endereco_cliente = txtCpfCnpjCli.getText();
-    String telefone_cliente = txtCpfCnpjCli.getText();
-    String email_cliente = txtEmailCli.getText();
-    String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
+        // Coleta os dados do formulário
+        int id_cliente = Integer.parseInt(txtIdCli.getText());
+        String nome_cliente = txtNomeCli.getText();
+        String endereco_cliente = txtEnderecoCli1.getText();
+        String telefone_cliente = txtTelefoneCli1.getText();
+        String email_cliente = txtEmailCli.getText();
+        String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
 
-    // Cria um objeto ClienteDTO e define seus atributos
-    ClienteDTO objClienteDTO = new ClienteDTO();
-    objClienteDTO.setId_cliente(id_cliente);
-    objClienteDTO.setNome_cli(nome_cliente);
-    objClienteDTO.setEndereco_cli(endereco_cliente);
-    objClienteDTO.setTelefone_cli(telefone_cliente);
-    objClienteDTO.setEmail_cli(email_cliente);
-    objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
+        // Cria um objeto ClienteDTO e define seus atributos
+        ClienteDTO objClienteDTO = new ClienteDTO();
+        objClienteDTO.setId_cliente(id_cliente);
+        objClienteDTO.setNome_cli(nome_cliente);
+        objClienteDTO.setEndereco_cli(endereco_cliente);
+        objClienteDTO.setTelefone_cli(telefone_cliente);
+        objClienteDTO.setEmail_cli(email_cliente);
+        objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
 
-    // Instancia o ClienteDAO e chama o método para inserir o cliente
-    ClienteDAO objClienteDAO = new ClienteDAO();
-    objClienteDAO.inserirCliente(objClienteDTO);
+        // Instancia o ClienteDAO e chama o método para inserir o cliente
+        ClienteDAO objClienteDAO = new ClienteDAO();
+        objClienteDAO.inserirCliente(objClienteDTO);
+
+        // Chama o método para atualizar a tabela passando o DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) TbCliente.getModel();
+        objClienteDAO.atualizarTabelaClientes(model);
     }//GEN-LAST:event_btnCliCreateActionPerformed
 
     private void btnCliDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliDeleteActionPerformed
-           int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
-    if (confirma == JOptionPane.YES_OPTION) {
-        int id_cliente = Integer.parseInt(txtIdCli.getText());
-        
-        // Instancia o ClienteDAO e chama o método para excluir o cliente
-        ClienteDAO objClienteDAO = new ClienteDAO();
-        objClienteDAO.deletarCliente(id_cliente);
-        
-        JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
-    }
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir este cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            try {
+                int id_cliente = Integer.parseInt(txtIdCli.getText());
+
+                // Instancia o ClienteDAO e chama o método para excluir o cliente
+                ClienteDAO objClienteDAO = new ClienteDAO();
+                objClienteDAO.deletarCliente(id_cliente); // Exclui o cliente
+
+                JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
+
+                // Atualiza a tabela
+                DefaultTableModel model = (DefaultTableModel) TelaClientes.TbCliente.getModel(); // Obtém o modelo da tabela
+                objClienteDAO.atualizarTabelaClientes(model); // Atualiza a tabela
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao obter o ID do cliente: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnCliDeleteActionPerformed
 
     private void btnClireadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClireadActionPerformed
-      ClienteDAO objClienteDAO = new ClienteDAO();
-    
-    int id_cliente = Integer.parseInt(txtIdCli.getText());
-    
-    // Busca o cliente pelo ID
-    ClienteDTO cliente = objClienteDAO.pesquisarCliente(id_cliente);
+        ClienteDAO objClienteDAO = new ClienteDAO();
 
-    // Verifica se encontrou o cliente e preenche os campos
-    if (cliente != null) {
-        txtNomeCli.setText(cliente.getNome_cli());
-        txtCpfCnpjCli.setText(cliente.getEndereco_cli());
-        txtCpfCnpjCli.setText(cliente.getTelefone_cli());
-        txtEmailCli.setText(cliente.getEmail_cli());
-        txtCpfCnpjCli.setText(cliente.getCpfOUcnpj_cli());
-    } else {
-        JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
-    }
+        int id_cliente = Integer.parseInt(txtIdCli.getText());
+
+        // Busca o cliente pelo ID
+        ClienteDTO cliente = objClienteDAO.pesquisarCliente(id_cliente);
+
+        // Verifica se encontrou o cliente e preenche os campos
+        if (cliente != null) {
+            txtNomeCli.setText(cliente.getNome_cli());
+            txtCpfCnpjCli.setText(cliente.getEndereco_cli());
+            txtCpfCnpjCli.setText(cliente.getTelefone_cli());
+            txtEmailCli.setText(cliente.getEmail_cli());
+            txtCpfCnpjCli.setText(cliente.getCpfOUcnpj_cli());
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente não cadastrado");
+        }
     }//GEN-LAST:event_btnClireadActionPerformed
 
     private void btnCliUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliUpdateActionPerformed
-       // Coleta os dados do formulário
-    int id_cliente = Integer.parseInt(txtIdCli.getText());
-    String nome_cliente = txtNomeCli.getText();
-    String endereco_cliente = txtCpfCnpjCli.getText();
-    String telefone_cliente = txtCpfCnpjCli.getText();
-    String email_cliente = txtEmailCli.getText();
-    String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
+        // Coleta os dados do formulário
+        int id_cliente = Integer.parseInt(txtIdCli.getText());
+        String nome_cliente = txtNomeCli.getText();
+        String endereco_cliente = txtEnderecoCli1.getText();
+        String telefone_cliente = txtTelefoneCli1.getText();
+        String email_cliente = txtEmailCli.getText();
+        String cpfOUcnpj_cliente = txtCpfCnpjCli.getText();
 
-    // Cria um objeto ClienteDTO e define seus atributos
-    ClienteDTO objClienteDTO = new ClienteDTO();
-    objClienteDTO.setId_cliente(id_cliente);
-    objClienteDTO.setNome_cli(nome_cliente);
-    objClienteDTO.setEndereco_cli(endereco_cliente);
-    objClienteDTO.setTelefone_cli(telefone_cliente);
-    objClienteDTO.setEmail_cli(email_cliente);
-    objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
+        // Cria um objeto ClienteDTO e define seus atributos
+        ClienteDTO objClienteDTO = new ClienteDTO();
+        objClienteDTO.setId_cliente(id_cliente);
+        objClienteDTO.setNome_cli(nome_cliente);
+        objClienteDTO.setEndereco_cli(endereco_cliente);
+        objClienteDTO.setTelefone_cli(telefone_cliente);
+        objClienteDTO.setEmail_cli(email_cliente);
+        objClienteDTO.setCpfOUcnpj_cli(cpfOUcnpj_cliente);
 
-    // Instancia o ClienteDAO e chama o método para atualizar o cliente
-    ClienteDAO objClienteDAO = new ClienteDAO();
-    objClienteDAO.atualizarCliente(objClienteDTO);
+        // Instancia o ClienteDAO e chama o método para atualizar o cliente
+        ClienteDAO objClienteDAO = new ClienteDAO();
+        objClienteDAO.atualizarCliente(objClienteDTO); // Atualiza o cliente
+
+        // Atualiza a tabela de clientes
+        DefaultTableModel model = (DefaultTableModel) TelaClientes.TbCliente.getModel(); // Obtém o modelo da tabela
+        objClienteDAO.atualizarTabelaClientes(model); // Passa o modelo para o método
     }//GEN-LAST:event_btnCliUpdateActionPerformed
 
     private void TbClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TbClienteMouseClicked
         //Busca itens da tabela para os campos do formulário
         int linhaSel = TbCliente.getSelectedRow();
-        if(linhaSel != -1 ){
+        if (linhaSel != -1) {
             String id_cliente = TbCliente.getValueAt(linhaSel, 0).toString();
             String nome_cliente = TbCliente.getValueAt(linhaSel, 1).toString();
-            String login_cliente = TbCliente.getValueAt(linhaSel, 2).toString();
-            String senha_cliente = TbCliente.getValueAt(linhaSel, 3).toString();
-            String perfil_cliente = TbCliente.getValueAt(linhaSel, 4).toString();
-            
+            String email_cliente = TbCliente.getValueAt(linhaSel, 2).toString();
+            String endereco_cliente = TbCliente.getValueAt(linhaSel, 3).toString();
+            String telefone_cliente = TbCliente.getValueAt(linhaSel, 4).toString();
+
             txtIdCli.setText(id_cliente);
             txtNomeCli.setText(nome_cliente);
-            txtEmailCli.setText(login_cliente);
-            txtCpfCnpjCli.setText(senha_cliente);
-            cboPerfilUsu.setSelectedItem(perfil_cliente);
+            txtEmailCli.setText(email_cliente);
+            txtEnderecoCli1.setText(endereco_cliente);
+            txtTelefoneCli1.setText(telefone_cliente);
         }
     }//GEN-LAST:event_TbClienteMouseClicked
 
     private void LimpaCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpaCliActionPerformed
-        // Botão limpar campos
-        ClienteDAO objClienteDAO = new ClienteDAO();
-        objClienteDAO.limparCampos();
+        // Limpa todos os campos
+        txtIdCli.setText("");
+        txtNomeCli.setText("");
+        txtEmailCli.setText("");
+        txtCpfCnpjCli.setText("");
+        txtEnderecoCli1.setText("");
+        txtTelefoneCli1.setText("");
+
     }//GEN-LAST:event_LimpaCliActionPerformed
 
-    private void txtSenhaCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaCli1ActionPerformed
+    private void txtEnderecoCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoCli1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaCli1ActionPerformed
+    }//GEN-LAST:event_txtEnderecoCli1ActionPerformed
+
+    private void txtTelefoneCli1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneCli1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneCli1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -390,25 +424,21 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCliDelete;
     private javax.swing.JButton btnCliUpdate;
     private javax.swing.JButton btnCliread;
-    public static javax.swing.JComboBox<String> cboPerfilUsu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    public javax.swing.JPasswordField txtCpfCnpjCli;
+    private javax.swing.JTextField txtCpfCnpjCli;
     public static javax.swing.JTextField txtEmailCli;
-    public javax.swing.JPasswordField txtEnderecoCli1;
+    private javax.swing.JTextField txtEnderecoCli1;
     public static javax.swing.JTextField txtIdCli;
     public static javax.swing.JTextField txtNomeCli;
-    public javax.swing.JPasswordField txtSenhaCli1;
-    public javax.swing.JPasswordField txtTelefoneCli1;
+    private javax.swing.JTextField txtTelefoneCli1;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,56 +18,54 @@ public class UsuarioDAO {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public boolean logar(UsuarioDTO objusuarioDTO) {
+    public boolean logar(UsuarioDTO objusuarioDTO, TelaUsuario telaUsuario) {
         String sql = "select * from tb_usuarios where login = ? and senha = ?";
-        conexao = ConexaoDAO.conector();
-        boolean sucesso = false;
+    conexao = ConexaoDAO.conector();
+    boolean sucesso = false;
 
-        try {
-            // Prepara a consulta no banco de dados
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, objusuarioDTO.getLogin_usuario());
-            pst.setString(2, objusuarioDTO.getSenha_usuario());
+    try {
+        // Prepara a consulta no banco de dados
+        pst = conexao.prepareStatement(sql);
+        pst.setString(1, objusuarioDTO.getLogin_usuario());
+        pst.setString(2, objusuarioDTO.getSenha_usuario());
 
-            // Executa a query
-            rs = pst.executeQuery();
+        // Executa a query
+        rs = pst.executeQuery();
 
-            // Verifica se existe um usuário com o login e senha informados
-            if (rs.next()) {
-                String perfil = rs.getString(5);
+        // Verifica se existe um usuário com o login e senha informados
+        if (rs.next()) {
+            String perfil = rs.getString(5);
 
-                // Trata o perfil do usuário
-                if (perfil.equals("admin")) {
-                    TelaPrincipal principal = new TelaPrincipal();
-                    principal.setVisible(true);
-                    TelaPrincipal.MenuRel.setEnabled(true);
-                    TelaPrincipal.subMenuUsuarios.setEnabled(true);
-                    TelaPrincipal.lblUsuarioPrincipal.setText(rs.getString(2));
-                    TelaPrincipal.lblUsuarioPrincipal.setForeground(Color.RED);
-                } else {
-                    TelaPrincipal principal = new TelaPrincipal();
-                    principal.setVisible(true);
-                    TelaPrincipal.lblUsuarioPrincipal.setText(rs.getString(2));
-                    TelaPrincipal.lblUsuarioPrincipal.setForeground(Color.BLUE);
-                }
-
-                // A partir daqui, o login foi bem-sucedido, então podemos chamar o método pesquisaAuto
-                TelaUsuario usuarioTela = new TelaUsuario();
-                usuarioTela.setVisible(true);  // Abre a tela de usuários
-                UsuarioDAO usuarioDAO = new UsuarioDAO(); // Cria o objeto do DAO para acessar os métodos
-                usuarioDAO.pesquisaAuto();  // Chama o método para preencher a tabela de usuários
-
-                sucesso = true;
-                conexao.close();  // Fecha a conexão
+            // Trata o perfil do usuário
+            if (perfil.equals("admin")) {
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+                TelaPrincipal.MenuRel.setEnabled(true);
+                TelaPrincipal.subMenuUsuarios.setEnabled(true);
+                TelaPrincipal.lblUsuarioPrincipal.setText(rs.getString(2));
+                TelaPrincipal.lblUsuarioPrincipal.setForeground(Color.RED);
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+                TelaPrincipal.lblUsuarioPrincipal.setText(rs.getString(2));
+                TelaPrincipal.lblUsuarioPrincipal.setForeground(Color.BLUE);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro no login: " + e);
-        }
 
-        return sucesso;
+            // Agora usamos a instância passada como parâmetro
+            telaUsuario.setVisible(true);  // Abre a tela de usuários
+            pesquisaAuto();  // Chama o método para preencher a tabela de usuários
+
+            sucesso = true;
+            conexao.close();  // Fecha a conexão
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro no login: " + e);
     }
+
+    return sucesso;
+}
     
     public void limparCampos(TelaUsuario telaUsuario) {
     telaUsuario.txtIdUsu.setText(null);

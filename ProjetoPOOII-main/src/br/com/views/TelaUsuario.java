@@ -21,11 +21,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    /**
-     * Creates new form TelaUsuario
-     */
-    public TelaUsuario() {
+    private TelaPrincipal telaPrincipal; 
+
+    // Construtor que aceita TelaPrincipal
+    public TelaUsuario(TelaPrincipal telaPrincipal) {
         initComponents();
+        this.telaPrincipal = telaPrincipal; // Armazena a referência
         conexao = ConexaoDAO.conector();
         UsuarioDAO ojbUsuarioDAO = new UsuarioDAO();
         ojbUsuarioDAO.pesquisaAuto();
@@ -83,28 +84,28 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nome:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 130, 50, 17);
+        jLabel2.setBounds(10, 110, 50, 17);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel3.setText("Email:");
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Login:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 200, 50, 17);
+        jLabel3.setBounds(10, 180, 50, 17);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Senha:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 270, 50, 17);
+        jLabel4.setBounds(10, 250, 50, 17);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel5.setText("Perfil");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Perfil:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(240, 350, 48, 22);
+        jLabel5.setBounds(10, 320, 48, 22);
 
         txtIdUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,9 +113,9 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(txtIdUsu);
-        txtIdUsu.setBounds(20, 80, 337, 35);
+        txtIdUsu.setBounds(10, 60, 250, 35);
         getContentPane().add(txtNomeUsu);
-        txtNomeUsu.setBounds(20, 150, 337, 35);
+        txtNomeUsu.setBounds(10, 130, 250, 35);
 
         txtLoginUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,9 +123,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(txtLoginUsu);
-        txtLoginUsu.setBounds(20, 220, 337, 35);
+        txtLoginUsu.setBounds(10, 200, 250, 35);
 
         cboPerfilUsu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cboPerfilUsu.setForeground(new java.awt.Color(0, 0, 0));
         cboPerfilUsu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
         cboPerfilUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +134,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(cboPerfilUsu);
-        cboPerfilUsu.setBounds(240, 380, 96, 28);
+        cboPerfilUsu.setBounds(10, 340, 250, 40);
 
         btnUsuCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/person_add.png"))); // NOI18N
         btnUsuCreate.setToolTipText("Adicionar");
@@ -144,7 +146,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnUsuCreate);
-        btnUsuCreate.setBounds(460, 390, 80, 70);
+        btnUsuCreate.setBounds(410, 380, 80, 70);
 
         btnUsuread.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/search.png"))); // NOI18N
         btnUsuread.setToolTipText("Pesquisar");
@@ -155,7 +157,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnUsuread);
-        btnUsuread.setBounds(570, 390, 80, 70);
+        btnUsuread.setBounds(520, 380, 80, 70);
 
         btnUsuUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -165,7 +167,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnUsuUpdate);
-        btnUsuUpdate.setBounds(680, 390, 80, 70);
+        btnUsuUpdate.setBounds(630, 380, 80, 70);
 
         btnUsuDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete_.png"))); // NOI18N
         btnUsuDelete.setToolTipText("Excluir");
@@ -176,10 +178,23 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btnUsuDelete);
-        btnUsuDelete.setBounds(790, 390, 80, 70);
+        btnUsuDelete.setBounds(740, 380, 80, 70);
 
+        TbUsuarios.setForeground(new java.awt.Color(0, 0, 0));
         TbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -201,16 +216,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(TbUsuarios);
-        if (TbUsuarios.getColumnModel().getColumnCount() > 0) {
-            TbUsuarios.getColumnModel().getColumn(0).setHeaderValue("Id");
-            TbUsuarios.getColumnModel().getColumn(4).setHeaderValue("Perfil");
-        }
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(390, 20, 560, 350);
+        jScrollPane2.setBounds(270, 20, 560, 350);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(240, 240, 240));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Limpar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,23 +229,23 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(50, 360, 100, 29);
+        jButton1.setBounds(280, 400, 100, 29);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tela Usuarios");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(120, 10, 130, 22);
+        jLabel6.setBounds(80, 10, 130, 22);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Id:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 60, 21, 17);
+        jLabel7.setBounds(10, 40, 21, 17);
         getContentPane().add(txtSenhaUsu);
-        txtSenhaUsu.setBounds(20, 290, 337, 35);
+        txtSenhaUsu.setBounds(10, 270, 250, 35);
 
-        setBounds(0, 0, 983, 514);
+        setBounds(0, 0, 846, 494);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuActionPerformed
