@@ -25,8 +25,7 @@
 </div>
 
 <h1>Documentação da Pasta <code>br.com.DAO</code></h1>
-</td>
-    </tr>
+
 <h2>Visão Geral</h2>
 <p>A pasta <code>br.com.DAO</code> contém classes que interagem diretamente com o banco de dados, sendo responsáveis pela execução de operações de CRUD (Create, Read, Update, Delete) para diferentes entidades do sistema. Ela inclui a conexão com o banco de dados e métodos que manipulam os dados de clientes, usuários e agendas.</p>
 
@@ -96,28 +95,45 @@ if (conexao != null) {
 </ul>
 
 <h3>2. Criação do Banco de Dados</h3>
-<p>Use o seguinte script para criar e popular o banco de dados (adicionar no README).</p>
+<p>Use o seguinte script para criar e popular o banco de dados.</p>
 
-<pre><code>CREATE DATABASE IF NOT EXISTS bdaulaprojeto;
+<pre><code>
 
-USE bdaulaprojeto;
+create database bdaulaprojeto;
+use bdaulaprojeto;
 
-CREATE TABLE tb_usuarios (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    usuario VARCHAR(50),
-    login VARCHAR(20),
-    senha VARCHAR(20),
-    perfil VARCHAR(10)
+create table tb_usuarios(
+id_usuario int primary key,
+usuario varchar(50) not null,
+login varchar(50) not null unique,
+senha varchar(15)not null
+
 );
 
-CREATE TABLE tb_clientes (
-    idcli INT PRIMARY KEY AUTO_INCREMENT,
-    nomecli VARCHAR(100),
-    enderecocli VARCHAR(100),
-    telefonecli VARCHAR(20),
-    emailcli VARCHAR(50),
-    cpfOUcnpjcli VARCHAR(20)
+insert into tb_usuarios(id_usuario, usuario, login, senha, perfil)
+values(1, 'administrador', 'root', 'root', 'admin');
+
+ALTER TABLE tb_usuarios 	
+ADD COLUMN perfil varchar(30);
+
+
+select * from tb_usuarios;
+
+create table tb_clientes(
+idcli int primary key auto_increment,
+nomecli varchar(50) not null,
+enderecocli varchar(30) not null,
+telefonecli varchar(30) not null unique,
+emailcli varchar(30),
+cpfOUcnpjcli varchar(50) not null unique
 );
+
+describe tb_clientes;
+
+select * from tb_clientes;
+
+insert into tb_clientes(nomecli,enderecocli,telefonecli,emailcli,cpfOUcnpjcli)
+values("rafael","los santos", 13123, "rafael@gmail", 4123);
 </code></pre>
 
 <h3>3. Execução</h3>
