@@ -103,16 +103,12 @@ create table tb_usuarios(
 id_usuario int primary key,
 usuario varchar(50) not null,
 login varchar(50) not null unique,
-senha varchar(15)not null
+senha varchar(15) not null,
+perfil varchar(30)
 );
 
 insert into tb_usuarios(id_usuario, usuario, login, senha, perfil)
 values(1, 'administrador', 'root', 'root', 'admin');
-
-ALTER TABLE tb_usuarios 	
-ADD COLUMN perfil varchar(30);
-
-select * from tb_usuarios;
 
 create table tb_clientes(
 idcli int primary key auto_increment,
@@ -123,12 +119,8 @@ emailcli varchar(30),
 cpfOUcnpjcli varchar(50) not null unique
 );
 
-describe tb_clientes;
-
-select * from tb_clientes;
-
-insert into tb_clientes(nomecli,enderecocli,telefonecli,emailcli,cpfOUcnpjcli)
-values("rafael","los santos", 13123, "rafael@gmail", 4123);
+insert into tb_clientes(nomecli, enderecocli, telefonecli, emailcli, cpfOUcnpjcli)
+values("rafael", "los santos", 13123, "rafael@gmail.com", 4123);
 </code></pre>
 
 <h3>3. Execução</h3>
@@ -151,9 +143,7 @@ values("rafael","los santos", 13123, "rafael@gmail", 4123);
     <li><code>getData()</code>: Retorna a data do agendamento.</li>
     <li><code>setData(Date data)</code>: Define a data do agendamento.</li>
     <li><code>getHorario()</code>: Retorna o horário do agendamento.</li>
-    <li><code>setHorario(String horario)</code>: Define
-
-        <li><code>setHorario(String horario)</code>: Define o horário do agendamento.</li>
+    <li><code>setHorario(String horario)</code>: Define o horário do agendamento.</li>
     <li><code>getDescricao()</code>: Retorna a descrição do agendamento.</li>
     <li><code>setDescricao(String descricao)</code>: Define a descrição do agendamento.</li>
     <li><code>getCliente()</code>: Retorna o cliente associado ao agendamento.</li>
