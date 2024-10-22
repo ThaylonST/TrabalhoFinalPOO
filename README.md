@@ -1,4 +1,3 @@
-
 # ProjetoPOOII
 
 ## Participantes
@@ -15,7 +14,7 @@
       </td>
       <td align="center">
         <a href="https://github.com/1GabrielC">
-          <img src="https://avatars.githubusercontent.com/u/130706226?v=4" width="75px;" alt="Foto de gabriel"/>
+          <img src="https://avatars.githubusercontent.com/u/130706226?v=4" width="75px;" alt="Foto de Gabriel"/>
           <br />
           <sub><b>Gabriel</b></sub>
         </a>
@@ -97,9 +96,7 @@ if (conexao != null) {
 <h3>2. Criação do Banco de Dados</h3>
 <p>Use o seguinte script para criar e popular o banco de dados.</p>
 
-<pre><code>
-
-create database bdaulaprojeto;
+<pre><code>create database bdaulaprojeto;
 use bdaulaprojeto;
 
 create table tb_usuarios(
@@ -107,7 +104,6 @@ id_usuario int primary key,
 usuario varchar(50) not null,
 login varchar(50) not null unique,
 senha varchar(15)not null
-
 );
 
 insert into tb_usuarios(id_usuario, usuario, login, senha, perfil)
@@ -115,7 +111,6 @@ values(1, 'administrador', 'root', 'root', 'admin');
 
 ALTER TABLE tb_usuarios 	
 ADD COLUMN perfil varchar(30);
-
 
 select * from tb_usuarios;
 
@@ -139,81 +134,82 @@ values("rafael","los santos", 13123, "rafael@gmail", 4123);
 <h3>3. Execução</h3>
 <p>Após garantir que o banco de dados está configurado corretamente, basta executar a aplicação através da interface gráfica (GUI). A aplicação se conectará automaticamente ao banco de dados e permitirá o gerenciamento de usuários e clientes.</p>
 
- <h1>Documentação da Pasta <code>br.com.DTO</code></h1>
+<h1>Documentação da Pasta <code>br.com.DTO</code></h1>
 
-    <h2>Classe <code>AgendaDTO</code></h2>
-    <p>A classe <code>AgendaDTO</code> representa os dados de uma agenda, incluindo a data, horário, descrição e o cliente associado.</p>
-    <h3>Atributos:</h3>
-    <ul>
-        <li><strong>data</strong>: Representa a data do agendamento (tipo <code>Date</code>).</li>
-        <li><strong>horario</strong>: Representa o horário do agendamento (tipo <code>String</code>).</li>
-        <li><strong>descricao</strong>: Descreve o motivo ou detalhes do agendamento (tipo <code>String</code>).</li>
-        <li><strong>cliente</strong>: Referência ao cliente associado a esse agendamento (tipo <code>ClienteDTO</code>).</li>
-    </ul>
+<h2>Classe <code>AgendaDTO</code></h2>
+<p>A classe <code>AgendaDTO</code> representa os dados de uma agenda, incluindo a data, horário, descrição e o cliente associado.</p>
+<h3>Atributos:</h3>
+<ul>
+    <li><strong>data</strong>: Representa a data do agendamento (tipo <code>Date</code>).</li>
+    <li><strong>horario</strong>: Representa o horário do agendamento (tipo <code>String</code>).</li>
+    <li><strong>descricao</strong>: Descreve o motivo ou detalhes do agendamento (tipo <code>String</code>).</li>
+    <li><strong>cliente</strong>: Referência ao cliente associado a esse agendamento (tipo <code>ClienteDTO</code>).</li>
+</ul>
 
-    <h3>Métodos:</h3>
-    <ul>
-        <li><code>getData()</code>: Retorna a data do agendamento.</li>
-        <li><code>setData(Date data)</code>: Define a data do agendamento.</li>
-        <li><code>getHorario()</code>: Retorna o horário do agendamento.</li>
+<h3>Métodos:</h3>
+<ul>
+    <li><code>getData()</code>: Retorna a data do agendamento.</li>
+    <li><code>setData(Date data)</code>: Define a data do agendamento.</li>
+    <li><code>getHorario()</code>: Retorna o horário do agendamento.</li>
+    <li><code>setHorario(String horario)</code>: Define
+
         <li><code>setHorario(String horario)</code>: Define o horário do agendamento.</li>
-        <li><code>getDescricao()</code>: Retorna a descrição do agendamento.</li>
-        <li><code>setDescricao(String descricao)</code>: Define a descrição do agendamento.</li>
-        <li><code>getCliente()</code>: Retorna o cliente associado ao agendamento.</li>
-        <li><code>setCliente(ClienteDTO cliente)</code>: Define o cliente associado ao agendamento.</li>
-    </ul>
+    <li><code>getDescricao()</code>: Retorna a descrição do agendamento.</li>
+    <li><code>setDescricao(String descricao)</code>: Define a descrição do agendamento.</li>
+    <li><code>getCliente()</code>: Retorna o cliente associado ao agendamento.</li>
+    <li><code>setCliente(ClienteDTO cliente)</code>: Define o cliente associado ao agendamento.</li>
+</ul>
 
-    <h2>Classe <code>ClienteDTO</code></h2>
-    <p>A classe <code>ClienteDTO</code> representa os dados de um cliente, contendo informações como ID, nome, endereço, telefone, email e CPF/CNPJ.</p>
-    <h3>Atributos:</h3>
-    <ul>
-        <li><strong>id_cliente</strong>: Representa o ID único do cliente (tipo <code>int</code>).</li>
-        <li><strong>nome_cli</strong>: O nome completo do cliente (tipo <code>String</code>).</li>
-        <li><strong>endereco_cli</strong>: O endereço do cliente (tipo <code>String</code>).</li>
-        <li><strong>telefone_cli</strong>: O telefone do cliente (tipo <code>String</code>).</li>
-        <li><strong>email_cli</strong>: O email do cliente (tipo <code>String</code>).</li>
-        <li><strong>cpfOUcnpj_cli</strong>: O CPF ou CNPJ do cliente (tipo <code>String</code>).</li>
-    </ul>
+<h2>Classe <code>ClienteDTO</code></h2>
+<p>A classe <code>ClienteDTO</code> é utilizada para representar os dados de um cliente no sistema, incluindo informações como nome, endereço, telefone, e-mail, e CPF/CNPJ.</p>
 
-    <h3>Métodos:</h3>
-    <ul>
-        <li><code>getId_cliente()</code>: Retorna o ID do cliente.</li>
-        <li><code>setId_cliente(int id_cliente)</code>: Define o ID do cliente.</li>
-        <li><code>getNome_cli()</code>: Retorna o nome do cliente.</li>
-        <li><code>setNome_cli(String nome_cli)</code>: Define o nome do cliente.</li>
-        <li><code>getEndereco_cli()</code>: Retorna o endereço do cliente.</li>
-        <li><code>setEndereco_cli(String endereco_cli)</code>: Define o endereço do cliente.</li>
-        <li><code>getTelefone_cli()</code>: Retorna o telefone do cliente.</li>
-        <li><code>setTelefone_cli(String telefone_cli)</code>: Define o telefone do cliente.</li>
-        <li><code>getEmail_cli()</code>: Retorna o email do cliente.</li>
-        <li><code>setEmail_cli(String email_cli)</code>: Define o email do cliente.</li>
-        <li><code>getCpfOUcnpj_cli()</code>: Retorna o CPF ou CNPJ do cliente.</li>
-        <li><code>setCpfOUcnpj_cli(String cpfOUcnpj_cli)</code>: Define o CPF ou CNPJ do cliente.</li>
-    </ul>
+<h3>Atributos:</h3>
+<ul>
+    <li><strong>nomecli</strong>: Nome do cliente (tipo <code>String</code>).</li>
+    <li><strong>enderecocli</strong>: Endereço do cliente (tipo <code>String</code>).</li>
+    <li><strong>telefonecli</strong>: Telefone do cliente (tipo <code>String</code>).</li>
+    <li><strong>emailcli</strong>: E-mail do cliente (tipo <code>String</code>).</li>
+    <li><strong>cpfOUcnpjcli</strong>: CPF ou CNPJ do cliente (tipo <code>String</code>).</li>
+</ul>
 
-    <h2>Classe <code>UsuarioDTO</code></h2>
-    <p>A classe <code>UsuarioDTO</code> representa os dados de um usuário no sistema, contendo informações como ID, nome, login, senha e perfil.</p>
-    <h3>Atributos:</h3>
-    <ul>
-        <li><strong>id_uauario</strong>: Representa o ID único do usuário (tipo <code>int</code>).</li>
-        <li><strong>nome_usuario</strong>: O nome do usuário (tipo <code>String</code>).</li>
-        <li><strong>login_usuario</strong>: O login utilizado pelo usuário (tipo <code>String</code>).</li>
-        <li><strong>senha_usuario</strong>: A senha utilizada pelo usuário (tipo <code>String</code>).</li>
-        <li><strong>perfil_usuario</strong>: O perfil de acesso do usuário (tipo <code>String</code>).</li>
-    </ul>
+<h3>Métodos:</h3>
+<ul>
+    <li><code>getNomecli()</code>: Retorna o nome do cliente.</li>
+    <li><code>setNomecli(String nomecli)</code>: Define o nome do cliente.</li>
+    <li><code>getEnderecocli()</code>: Retorna o endereço do cliente.</li>
+    <li><code>setEnderecocli(String enderecocli)</code>: Define o endereço do cliente.</li>
+    <li><code>getTelefonecli()</code>: Retorna o telefone do cliente.</li>
+    <li><code>setTelefonecli(String telefonecli)</code>: Define o telefone do cliente.</li>
+    <li><code>getEmailcli()</code>: Retorna o e-mail do cliente.</li>
+    <li><code>setEmailcli(String emailcli)</code>: Define o e-mail do cliente.</li>
+    <li><code>getCpfOUcnpjcli()</code>: Retorna o CPF ou CNPJ do cliente.</li>
+    <li><code>setCpfOUcnpjcli(String cpfOUcnpjcli)</code>: Define o CPF ou CNPJ do cliente.</li>
+</ul>
 
-    <h3>Métodos:</h3>
-    <ul>
-        <li><code>getId_uauario()</code>: Retorna o ID do usuário.</li>
-        <li><code>setId_uauario(int id_uauario)</code>: Define o ID do usuário.</li>
-        <li><code>getNome_usuario()</code>: Retorna o nome do usuário.</li>
-        <li><code>setNome_usuario(String nome_usuario)</code>: Define o nome do usuário.</li>
-        <li><code>getLogin_usuario()</code>: Retorna o login do usuário.</li>
-        <li><code>setLogin_usuario(String login_usuario)</code>: Define o login do usuário.</li>
-        <li><code>getSenha_usuario()</code>: Retorna a senha do usuário.</li>
-        <li><code>setSenha_usuario(String senha_usuario)</code>: Define a senha do usuário.</li>
-        <li><code>getPerfil_usuario()</code>: Retorna o perfil de acesso do usuário.</li>
-        <li><code>setPerfil_usuario(String perfil_usuario)</code>: Define o perfil de acesso do usuário.</li>
-    </ul>
+<h2>Classe <code>UsuarioDTO</code></h2>
+<p>A classe <code>UsuarioDTO</code> é utilizada para armazenar as informações de um usuário no sistema.</p>
 
+<h3>Atributos:</h3>
+<ul>
+    <li><strong>usuario</strong>: Nome do usuário (tipo <code>String</code>).</li>
+    <li><strong>login</strong>: Login do usuário (tipo <code>String</code>).</li>
+    <li><strong>senha</strong>: Senha do usuário (tipo <code>String</code>).</li>
+    <li><strong>perfil</strong>: Perfil do usuário (tipo <code>String</code>).</li>
+</ul>
 
+<h3>Métodos:</h3>
+<ul>
+    <li><code>getUsuario()</code>: Retorna o nome do usuário.</li>
+    <li><code>setUsuario(String usuario)</code>: Define o nome do usuário.</li>
+    <li><code>getLogin()</code>: Retorna o login do usuário.</li>
+    <li><code>setLogin(String login)</code>: Define o login do usuário.</li>
+    <li><code>getSenha()</code>: Retorna a senha do usuário.</li>
+    <li><code>setSenha(String senha)</code>: Define a senha do usuário.</li>
+    <li><code>getPerfil()</code>: Retorna o perfil do usuário.</li>
+    <li><code>setPerfil(String perfil)</code>: Define o perfil do usuário.</li>
+</ul>
+
+<h1>Conclusão</h1>
+<p>O projeto visa facilitar o gerenciamento de usuários e clientes, integrando funcionalidades de CRUD em um sistema que interage com um banco de dados MySQL. A estrutura organizada em pacotes facilita a manutenção e a escalabilidade do sistema.</p>
+
+<p>Para mais informações, consulte os comentários no código-fonte ou entre em contato com os desenvolvedores.</p>
