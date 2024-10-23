@@ -209,6 +209,33 @@ values("rafael", "los santos", 13123, "rafael@gmail.com", 4123);
     <li><code>setPerfil(String perfil)</code>: Define o perfil do usuário.</li>
 </ul>
 
+<h2>Classe <code>AgendaDTO</code></h2>
+<p>A classe <code>AgendaDTO</code> representa os dados de uma agenda, incluindo os dados, horário, descrição e o cliente associado.</p>
+
+<h3>Atributos:</h3>
+<ul>
+    <li><strong>id</strong>: Identificador único do agendamento (tipo <code>int</code>).</li>
+    <li><strong>data</strong>: Representa a data do agendamento (tipo <code>LocalDate</code>).</li>
+    <li><strong>hora</strong>: Representa o horário do agendamento (tipo <code>LocalTime</code>).</li>
+    <li><strong>descricao</strong>: Descreve o motivo ou detalhes do agendamento (tipo <code>String</code>).</li>
+    <li><strong>clienteId</strong>: ID do cliente associado a esse agendamento (tipo <code>int</code>).</li>
+</ul>
+
+<h3>Métodos:</h3>
+<ul>
+    <li><code>getId()</code>: Retorna o identificador do agendamento.</li>
+    <li><code>setId(int id)</code>: Define o identificador do agendamento.</li>
+    <li><code>getData()</code>: Retorna a data do agendamento.</li>
+    <li><code>setData(LocalDate data)</code>: Define a data do agendamento.</li>
+    <li><code>getHora()</code>: Retorna o horário do agendamento.</li>
+    <li><code>setHora(LocalTime hora)</code>: Define o horário do agendamento.</li>
+    <li><code>getDescricao()</code>: Retorna a descrição do agendamento.</li>
+    <li><code>setDescricao(String descricao)</code>: Define a descrição do agendamento.</li>
+    <li><code>getClienteId()</code>: Retorna o ID do cliente associado ao agendamento.</li>
+    <li><code>setClienteId(int clienteId)</code>: Define o ID do cliente associado ao agendamento.</li>
+</ul>
+
+
 <h1>Conclusão</h1>
 <p>O projeto visa facilitar o gerenciamento de usuários e clientes, integrando funcionalidades de CRUD em um sistema que interage com um banco de dados MySQL. A estrutura organizada em pacotes facilita a manutenção e a escalabilidade do sistema.</p>
 
