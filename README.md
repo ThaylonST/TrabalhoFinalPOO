@@ -81,6 +81,16 @@ if (conexao != null) {
     <li><code>atualizarTabelaClientes(DefaultTableModel model)</code>: Atualiza a tabela de clientes na interface <code>TelaClientes</code> com os dados atuais do banco.</li>
 </ul>
 
+<h3>4. <code>AgendaDAO</code></h3>
+<p>Esta classe é responsável por gerenciar os compromissos na agenda, permitindo operações de listagem e adição de compromissos.</p>
+
+<h4>Métodos Principais:</h4>
+<ul>
+    <li><code>listarCompromissos()</code>: Lista todos os compromissos cadastrados na tabela <code>tb_agenda</code> e retorna uma lista de objetos <code>AgendaDTO</code>.</li>
+    <li><code>adicionarCompromisso(AgendaDTO agenda)</code>: Adiciona um novo compromisso na tabela <code>tb_agenda</code>.</li>
+    <li><code>limpar()</code>: Limpa os campos da interface <code>TelaAgenda</code> após a operação.</li>
+</ul>
+
 <h2>Como Executar e Conectar ao Banco de Dados</h2>
 
 <h3>1. Configuração da Conexão</h3>
