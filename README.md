@@ -33,7 +33,7 @@
     <li><code>ConexaoDAO</code>: Responsável por estabelecer a conexão com o banco de dados.</li>
     <li><code>UsuarioDAO</code>: Gerencia as operações relacionadas à tabela de usuários.</li>
     <li><code>ClienteDAO</code>: Controla as operações relacionadas à tabela de clientes.</li>
-    <li><code>AgendaDAO</code>: (Em desenvolvimento) Será responsável pelas operações de agendamento.</li>
+    <li><code>AgendaDAO</code>: Responsável pelas operações de agendamento.</li>
 </ul>
 
 <h2>Classes e Métodos</h2>
